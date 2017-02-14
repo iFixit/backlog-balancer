@@ -1,0 +1,14 @@
+{
+  "name": "backlog-balancer",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Redistribute all open issues evenly across a set of priority buckets",
+  "dependencies": {
+    "debug": "2.6.x",
+    "github": "8.2.x",
+    "mysql": "2.13.x",
+    "promise": "7.1.x"
+  },
+  "main": "balance.js",
+  "author": "iFixit"
+}
