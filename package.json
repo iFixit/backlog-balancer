@@ -9,6 +9,12 @@
     "mysql": "2.13.x",
     "promise": "7.1.x"
   },
+  "devDependencies": {
+    "mocha": "3.2.x"
+  },
+  "scripts": {
+     "test": "mocha test.js"
+  },
   "main": "balance.js",
   "author": "iFixit"
 }
