@@ -1,26 +1,41 @@
-function Issue() {
-   this.labels = [];
+function Issue(number) {
+   var labels = [];
+   var number = number;
+   var priorityLabel;
+
+   this.getPriority = function() {
+      return getNumber(priorityLabel);
+   };
+
+   this.getNumber = function() {
+      return number;
+   };
+
+   this.addLabel = function(label, applied_on) {
+      labels.push({
+         title: label,
+         applied_on: applied_on
+      });
+      return priorityLabel = choosePriorityLabel(labels);
+   }
 }
+
 module.exports = Issue;
 
 /**
- * Returns an integer priority from a collection of labels
+ * Returns the label with the most recent applied_on date
  */
-Issue.prototype.getPriority = function() {
-   // Extract the priority number from each label title
-   // "p-4" -> 4
-   return this.labels.map(function(label) {
-      return parseInt(label.title.match(/^p-(\d+)$/)[1], 10);
-   })
-   // return the smallest priority number
-   .reduce(function(a, b) {
-      return Math.min(a, b);
-   });
+function choosePriorityLabel(labels) {
+   return labels.reduce(function(a, b) {
+      return a.applied_on > b.applied_on ? a : b;
+   }, labels[0]);
 }
 
-Issue.prototype.addLabel = function(label, applied_on) {
-   this.labels.push({
-      title: label,
-      applied_on: applied_on
-   });
+
+/**
+ * Returns an integer priority number from a label like "p-3"
+ * "p-4" -> 4
+ */
+function getNumber(label) {
+   return parseInt(label.title.match(/^p-(\d+)$/)[1], 10);
 }
