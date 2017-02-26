@@ -7,6 +7,10 @@ function Issue(number) {
       return getNumber(priorityLabel);
    };
 
+   this.getAppliedOn = function() {
+      return priorityLabel.applied_on;
+   };
+
    this.getNumber = function() {
       return number;
    };
