@@ -13,7 +13,7 @@
     "mocha": "3.2.x"
   },
   "scripts": {
-     "test": "mocha test.js"
+     "test": "mocha test/"
   },
   "main": "balance.js",
   "author": "iFixit"
