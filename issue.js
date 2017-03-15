@@ -1,3 +1,5 @@
+var priorityLabelRegex = /^p(\d+)$/;
+
 function Issue(number) {
    var labels = [];
    var number = number;
@@ -20,6 +22,9 @@ function Issue(number) {
    };
 
    this.addLabel = function(label, applied_on) {
+      if (!isPriorityLabel(label)) {
+         return;
+      }
       labels.push({
          title: label,
          applied_on: applied_on
@@ -41,9 +46,16 @@ function choosePriorityLabel(labels) {
 
 
 /**
- * Returns an integer priority number from a label like "p-3"
- * "p-4" -> 4
+ * Returns an integer priority number from a label like "p3"
+ * "p4" -> 4
  */
 function getNumber(label) {
-   return parseInt(label.title.match(/^p(\d+)$/)[1], 10);
+   return parseInt(label.title.match(priorityLabelRegex)[1], 10);
+}
+
+/**
+ * Returns true if this label title is formatted like a priority label
+ */
+function isPriorityLabel(title) {
+   return title.match(priorityLabelRegex);
 }

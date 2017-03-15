@@ -31,6 +31,10 @@ describe('Issue', function() {
       it('should return false if there are no priority labels', function() {
          var i = new Issue()
          assert.equal(false, i.hasPriority());
+         i.addLabel('blah', 1);
+         assert.equal(false, i.hasPriority());
+         i.addLabel('p', 1);
+         assert.equal(false, i.hasPriority());
          i.addLabel('p1', 1);
          assert.equal(true, i.hasPriority());
       });
