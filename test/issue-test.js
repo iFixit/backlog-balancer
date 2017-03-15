@@ -27,6 +27,24 @@ describe('Issue', function() {
       });
    });
 
+   describe('#getAppliedOn()', function() {
+      function issueWithLabels() {
+         var i = new Issue();
+         i.addLabel('p1', 1);
+         i.addLabel('p1', 3);
+         i.addLabel('p1', 2);
+         return i;
+      }
+      it('should choose the date from the most recent label', function() {
+         var i = issueWithLabels();
+         assert.equal(3, i.getAppliedOn());
+      });
+      it('should return null if there is no label', function() {
+         var i = new Issue(1);
+         assert.equal(null, i.getAppliedOn());
+      });
+   });
+
    describe('#hasPriority()', function() {
       it('should return false if there are no priority labels', function() {
          var i = new Issue()
