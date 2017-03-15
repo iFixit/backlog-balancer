@@ -17,7 +17,7 @@ module.exports = {
          if (!issues[row.number]) {
             issues[row.number] = new Issue(row.number);
          }
-         issues[row.number].addLabel(row.title, row.applied_on);
+         issues[row.number].addLabel(row.label, row.applied_on);
          return issues;
       }, {})
    }
