@@ -41,5 +41,5 @@ function choosePriorityLabel(labels) {
  * "p-4" -> 4
  */
 function getNumber(label) {
-   return parseInt(label.title.match(/^p-(\d+)$/)[1], 10);
+   return parseInt(label.title.match(/^p(\d+)$/)[1], 10);
 }
