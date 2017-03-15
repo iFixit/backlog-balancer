@@ -3,12 +3,16 @@ function Issue(number) {
    var number = number;
    var priorityLabel;
 
+   this.hasPriority = function () {
+      return !!priorityLabel;
+   }
+
    this.getPriority = function() {
-      return getNumber(priorityLabel);
+      return priorityLabel && getNumber(priorityLabel);
    };
 
    this.getAppliedOn = function() {
-      return priorityLabel.applied_on;
+      return priorityLabel && priorityLabel.applied_on;
    };
 
    this.getNumber = function() {

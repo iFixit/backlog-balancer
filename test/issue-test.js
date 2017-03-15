@@ -21,5 +21,18 @@ describe('Issue', function() {
          var i = issueWithLabels();
          assert.equal(9, i.getPriority());
       });
+      it('should return null if there is no label', function() {
+         var i = new Issue(1);
+         assert.equal(null, i.getPriority());
+      });
+   });
+
+   describe('#hasPriority()', function() {
+      it('should return false if there are no priority labels', function() {
+         var i = new Issue()
+         assert.equal(false, i.hasPriority());
+         i.addLabel('p1', 1);
+         assert.equal(true, i.hasPriority());
+      });
    });
 });
