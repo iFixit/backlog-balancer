@@ -1,4 +1,7 @@
+var debug = require('debug')('backlog:sort');
+
 module.exports = function sortByLabelAndDate(issues) {
+   debug("sorting %s issues by priority, then label applied date", issues.length);
    return issues.sort(function(a, b) {
       // Sort priority ASC
       if (a.getPriority() < b.getPriority()) {
@@ -13,8 +16,8 @@ module.exports = function sortByLabelAndDate(issues) {
       } else if (a.getAppliedOn() > b.getAppliedOn()) {
          return -1;
       } else {
-         return 0
+         return 0;
       }
    });
-}
+};
 
