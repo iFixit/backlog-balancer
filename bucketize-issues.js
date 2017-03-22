@@ -1,4 +1,7 @@
+var debug = require('debug')('backlog:bucketize');
+
 module.exports = function(input, numBuckets) {
+   debug("putting %s issues into %s buckets", input.length, numBuckets);
    var output = [];
    var offset = 0;
 
