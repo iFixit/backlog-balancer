@@ -2,12 +2,11 @@ var priorityLabelRegex = /^p(\d+)$/;
 
 function Issue(number) {
    var labels = [];
-   var number = number;
    var priorityLabel;
 
    this.hasPriority = function () {
       return !!priorityLabel;
-   }
+   };
 
    this.getPriority = function() {
       return priorityLabel && getNumber(priorityLabel);
@@ -29,8 +28,9 @@ function Issue(number) {
          title: label,
          applied_on: applied_on
       });
-      return priorityLabel = choosePriorityLabel(labels);
-   }
+      priorityLabel = choosePriorityLabel(labels);
+      return priorityLabel;
+   };
 }
 
 module.exports = Issue;

@@ -1,5 +1,5 @@
 var assert = require('assert');
-var Issue = require('../issue.js')
+var Issue = require('../issue.js');
 
 describe('Issue', function() {
    describe('#addLabel()', function() {
