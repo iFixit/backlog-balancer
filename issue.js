@@ -31,6 +31,12 @@ function Issue(number) {
       priorityLabel = choosePriorityLabel(labels);
       return priorityLabel;
    };
+
+   this.getPriorityLabels = function() {
+      return labels.map(function(label) {
+         return label.title;
+      });
+   };
 }
 
 module.exports = Issue;

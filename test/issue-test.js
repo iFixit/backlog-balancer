@@ -27,6 +27,16 @@ describe('Issue', function() {
       });
    });
 
+   describe('#getPriorityLabels()', function() {
+      function issueWithLabels() {
+         var i = new Issue();
+         i.addLabel('p4', 1);
+         i.addLabel('p2', 2);
+         assert.deepEqual(i.getPriorityLabels(), ['p4', 'p2']);
+         return i;
+      }
+   });
+
    describe('#getAppliedOn()', function() {
       function issueWithLabels() {
          var i = new Issue();
