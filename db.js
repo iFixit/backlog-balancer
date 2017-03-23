@@ -6,7 +6,7 @@ module.exports = {
    getIssuesAndLabelRows: function() {
       debug("Selecting issue rows from the database");
       return mysql.query(
-         "SELECT number, title AS label, labels.date as 'applied_on' \
+         "SELECT number, labels.title AS label, labels.date as 'applied_on' \
          FROM issues \
          LEFT JOIN pull_labels labels USING (number) \
          WHERE milestone_title = ? \
