@@ -1,6 +1,7 @@
 var db = require('./db.js');
 var debug = require('debug')('backlog');
 var config = require('./config.js');
+var github = require('./github.js');
 
 db.getIssuesAndLabelRows()
 .then(db.createIssueObjects)
@@ -9,7 +10,7 @@ db.getIssuesAndLabelRows()
 .then(function(issues) {
    return require('./bucketize-issues.js')(issues, config.numBuckets);
 })
-.then(require('./apply-labels.js')(require('./github.js')))
+.then(require('./apply-labels.js')(github))
 .done(function () {
    debug("Balancing complete");
 });
