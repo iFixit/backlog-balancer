@@ -11,7 +11,11 @@ module.exports = {
          LEFT JOIN pull_labels labels USING (number) \
          WHERE milestone_title = ? \
          AND status = 'open' \
-         AND labels.title LIKE 'p%'", ["Backlog"])
+         AND labels.title LIKE 'p%'", ["Backlog"]
+      ).then(function(rows) {
+         mysql.end();
+         return rows;
+      });
    },
 
    createIssueObjects: function(rows) {
