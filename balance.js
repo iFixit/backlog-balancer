@@ -1,5 +1,5 @@
 var db = require('./db.js');
-var debug = require('debug')('backlog');
+var debug = require('debug')('backlog:app');
 var config = require('./config.js');
 var github = require('./github.js');
 
