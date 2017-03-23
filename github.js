@@ -1,5 +1,6 @@
 var config = require('./config');
 var debug = require('debug')('backlog:github');
+var Promise = require('promise');
 var github = new require('github')(),
     addIssueLabel = Promise.denodeify(github.issues.addLabels),
     removeIssueLabel = Promise.denodeify(github.issues.deleteLabel);
