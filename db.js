@@ -13,15 +13,16 @@ module.exports = {
          AND status = 'open' \
          AND labels.title LIKE 'p%'", ["Backlog"]
       ).then(function(rows) {
+         debug("Selected %s issue + label rows", rows.length);
          mysql.end();
          return rows;
       });
    },
 
    createIssueObjects: function(rows) {
-      debug("Instantiating %s issue objects and labels", rows.length);
       var issueMap = {};
       var issues = [];
+      debug("Instantiating issue objects from %s rows", rows.length);
       rows.forEach(function(row) {
          if (!issueMap[row.number]) {
             var issue = new Issue(row.number);
@@ -30,6 +31,7 @@ module.exports = {
          }
          issueMap[row.number].addLabel(row.label, row.applied_on);
       });
+      debug("Instantiated %s issue objects", issues.length);
       return issues;
    }
 }
