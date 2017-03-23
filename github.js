@@ -3,7 +3,7 @@ var debug = require('debug')('backlog:github');
 var Promise = require('promise');
 var github = new require('github')(),
     addIssueLabel = Promise.denodeify(github.issues.addLabels),
-    removeIssueLabel = Promise.denodeify(github.issues.deleteLabel);
+    removeIssueLabel = Promise.denodeify(github.issues.removeLabel);
 
 github.authenticate(config.github);
 
@@ -13,7 +13,7 @@ exports.removeLabel = function removeLabel(issue, label) {
       owner:  config.owner,
       repo:   config.repo,
       number: issue.getNumber(),
-      label:  label
+      name:   label
    });
 };
 
