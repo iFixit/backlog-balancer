@@ -5,10 +5,7 @@ var github = new require('github')(),
     addIssueLabel = Promise.denodeify(github.issues.addLabels),
     removeIssueLabel = Promise.denodeify(github.issues.deleteLabel);
 
-github.authenticate({
-   type: 'oauth',
-   token: config.github.token
-});
+github.authenticate(config.github);
 
 exports.removeLabel = function removeLabel(issue, label) {
    debug("Issue %s: removing label %s", issue.getNumber(), label);
