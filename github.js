@@ -1,8 +1,5 @@
 var config = require('./config');
-var github = new require('github')({
-      debug: config.debug,
-      version: '3.0.0'
-    }),
+var github = new require('github')(),
     addIssueLabel = Promise.denodeify(github.issues.addLabels),
     removeIssueLabel = Promise.denodeify(github.issues.deleteLabel);
 
