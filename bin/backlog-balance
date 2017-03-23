@@ -1,0 +1,7 @@
+#!/usr/bin/node
+
+if (!process.env.DEBUG) {
+   process.env.DEBUG = 'backlog:*';
+}
+
+require('../balance.js');
