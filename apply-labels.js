@@ -7,7 +7,7 @@ module.exports = function(github) {
       buckets.forEach(function(bucket, index) {
          bucket.forEach(function(issue) {
             tasks.push(function() {
-               return assignPriority(issue, index + 1);
+               return assignPriority(issue, index);
             });
          });
       });
@@ -42,6 +42,8 @@ module.exports = function(github) {
 };
 
 function makeLabel(priority) {
-   return "p" + priority;
+   // + 1 so that 0-indexed buckets (from bucketize) become 1-indexed priority
+   // labels.
+   return "p" + (priority + 1);
 }
 
