@@ -16,13 +16,17 @@ module.exports = {
 
    createIssueObjects: function(rows) {
       debug("Instantiating %s issue objects and labels", rows.length);
-      return rows.reduce(function(issues, row) {
-         if (!issues[row.number]) {
-            issues[row.number] = new Issue(row.number);
+      var issueMap = {};
+      var issues = [];
+      rows.forEach(function(row) {
+         if (!issueMap[row.number]) {
+            var issue = new Issue(row.number);
+            issues.push(issue);
+            issueMap[row.number] = issue;
          }
-         issues[row.number].addLabel(row.label, row.applied_on);
-         return issues;
-      }, {})
+         issueMap[row.number].addLabel(row.label, row.applied_on);
+      });
+      return issues;
    }
 }
 
