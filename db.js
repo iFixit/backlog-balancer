@@ -1,5 +1,6 @@
 var mysql = require('/opt/pulldasher/lib/db.js');
 var Issue = require('./issue.js');
+var config = require('./config.js');
 var debug = require('debug')('backlog:db');
 
 module.exports = {
@@ -11,7 +12,7 @@ module.exports = {
          LEFT JOIN pull_labels labels USING (number) \
          WHERE milestone_title = ? \
          AND status = 'open' \
-         AND labels.title LIKE 'p%'", ["Backlog"]
+         AND labels.title LIKE 'p%'", [config.backlog_milestone]
       ).then(function(rows) {
          debug("Selected %s issue + label rows", rows.length);
          mysql.end();
