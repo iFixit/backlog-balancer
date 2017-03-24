@@ -8,7 +8,7 @@ db.getIssuesAndLabelRows()
 .then(require('./filter-issues.js'))
 .then(require('./sort-issues.js'))
 .then(function(issues) {
-   return require('./bucketize-issues.js')(issues, config.numBuckets);
+   return require('./bucketize-issues.js')(issues, config.buckets);
 })
 .then(require('./apply-labels.js')(github))
 .done(function () {
