@@ -26,7 +26,7 @@ describe('apply-labels', function() {
       return assertLabelsAreChanged([[i]], ["1:p1"], ["1:p2"]);
    });
 
-   it('should call removeLabel appropriately', function() {
+   it('should call removeLabel appropriately for several issues', function() {
       var i1 = new Issue(1), i2 = new Issue(2);
       i1.addLabel('p2', 1);
       i2.addLabel('p1', 1);
