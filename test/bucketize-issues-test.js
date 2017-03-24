@@ -10,6 +10,8 @@ describe('bucketize-isues', function() {
       assert.deepEqual(output, [[1,2,3],[4,5,6]]);
 
       // Uneven split
+      // We want bucketize([1,2,3,4,5,6], 4) to give buckets like [[1,2],
+      // [3,4], [5], [6]] and not [1,2], [3,4], [5,6], []]
       output = bucketize(input, 4);
       assert.deepEqual(output, [[1,2],[3,4],[5],[6]]);
 

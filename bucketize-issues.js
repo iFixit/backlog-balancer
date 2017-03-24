@@ -7,6 +7,8 @@ module.exports = function(input, numBuckets) {
 
    for (var i = 0; i < numBuckets; i++) {
       // Spread the remaining items across the remaining buckets
+      // This will give us items spread across buckets in a way that
+      // max(bucketSizes) - min(bucketSizes) is never greater than 1
       var itemsPerBucket = Math.ceil(remaining() / (numBuckets - i));
       output[i] = [];
       for (var j = 0; j < itemsPerBucket; j++) {
