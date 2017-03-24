@@ -50,7 +50,6 @@ function choosePriorityLabel(labels) {
    }, labels[0]);
 }
 
-
 /**
  * Returns an integer priority number from a label like "p3"
  * "p4" -> 4
