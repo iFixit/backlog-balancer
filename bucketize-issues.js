@@ -4,17 +4,15 @@ module.exports = function(input, bucketWeights) {
    debug("Putting %s issues into %s buckets", input.length, bucketWeights.length);
    var output = [];
    var offset = 0;
-   var allWeights = normalizeBucketWeights(bucketWeights);
 
    for (var i = 0; i < bucketWeights.length; i++) {
       // Get the normalized distribution of the remaining buckets
       var normalizedBuckets = normalizeBucketWeights(bucketWeights.slice(i));
-      var thisBucket = normalizedBuckets[0];
+      var thisBucketSize = normalizedBuckets[0];
 
       // Spread the remaining items across the remaining buckets
-      // This will give us items spread across buckets in a way that
-      // max(bucketSizes) - min(bucketSizes) is never greater than 1
-      var itemsPerBucket = Math.max(1, Math.ceil(remaining() * thisBucket));
+      // according to their distributions
+      var itemsPerBucket = Math.max(1, Math.ceil(remaining() * thisBucketSize));
 
       output[i] = [];
       var j, item;
