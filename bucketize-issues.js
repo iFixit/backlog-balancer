@@ -1,7 +1,7 @@
 var debug = require('debug')('backlog:bucketize');
 
 module.exports = function(input, bucketWeights) {
-   debug("putting %s issues into %s buckets", input.length, bucketWeights.length);
+   debug("Putting %s issues into %s buckets", input.length, bucketWeights.length);
    var output = [];
    var offset = 0;
    var allWeights = normalizeBucketWeights(bucketWeights);
