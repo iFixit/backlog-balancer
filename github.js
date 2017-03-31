@@ -8,6 +8,10 @@ var github = new require('github')(),
 github.authenticate(config.github);
 
 exports.removeLabel = function removeLabel(issue, label) {
+   if (config.dryRun) {
+      debug("[dry run] Issue %s: removing label %s", issue.getNumber(), label);
+      return Promise.resolve();
+   }
    debug("Issue %s: removing label %s", issue.getNumber(), label);
    return removeIssueLabel({
       owner:  config.owner,
@@ -18,6 +22,10 @@ exports.removeLabel = function removeLabel(issue, label) {
 };
 
 exports.addLabel = function addLabel(issue, label) {
+   if (config.dryRun) {
+      debug("[dry run] Issue %s: adding label %s", issue.getNumber(), label);
+      return Promise.resolve();
+   }
    debug("Issue %s: adding label %s", issue.getNumber(), label);
    return addIssueLabel({
       owner:  config.owner,

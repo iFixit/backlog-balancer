@@ -1,7 +1,24 @@
 #!/usr/bin/node
 
+var config = require('../config.js');
+
 if (!process.env.DEBUG) {
    process.env.DEBUG = 'backlog:*';
 }
 
+parseArguments(process.argv);
 require('../balance.js');
+
+function parseArguments(args) {
+   if (args.length <= 2) {
+      return;
+   }
+
+   // argument parsing is easy when there is only one :-)
+   if (args[2] == '--dry-run') {
+      config.dryRun = true;
+   } else {
+      console.error("Usage: backlog-balance [--dry-run]");
+      process.exit(1);
+   }
+}
