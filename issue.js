@@ -1,4 +1,4 @@
-var priorityLabelRegex = /^p(\d+)$/;
+var priorityLabelRegex = /^p([1-9])$/;
 
 function Issue(number) {
    var labels = [];
