@@ -29,6 +29,9 @@ module.exports = function(input, bucketWeights) {
       return Math.max(0, input.length - offset);
    }
 
+   debug("Bucket sizes: [%s]",
+    output.map(function(bucket) {return bucket.length}).join(','));
+
    return output;
 };
 
