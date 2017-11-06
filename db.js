@@ -9,8 +9,9 @@ module.exports = {
       return mysql.query(
          "SELECT number, labels.title AS label, labels.date as 'applied_on' \
          FROM issues \
-         LEFT JOIN pull_labels labels USING (number) \
+         LEFT JOIN pull_labels labels USING (number, repo) \
          WHERE milestone_title = ? \
+         AND issues.repo = 'ifixit/ifixit' \
          AND status = 'open' \
          AND labels.title LIKE 'p%'", [config.backlog_milestone]
       ).then(function(rows) {
