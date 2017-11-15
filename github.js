@@ -2,8 +2,8 @@ var config = require('./config');
 var debug = require('debug')('backlog:github');
 var Promise = require('promise');
 var github = new require('github')(),
-    addIssueLabel = Promise.denodeify(github.issues.addLabels),
-    removeIssueLabel = Promise.denodeify(github.issues.removeLabel);
+    addIssueLabel = github.issues.addLabels,
+    removeIssueLabel = github.issues.removeLabel;
 
 github.authenticate(config.github);
 
