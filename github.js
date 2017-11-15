@@ -13,12 +13,9 @@ exports.removeLabel = function removeLabel(issue, label) {
       return Promise.resolve();
    }
    debug("Issue %s: removing label %s", issue.getNumber(), label);
-   return removeIssueLabel({
-      owner:  config.owner,
-      repo:   config.repo,
-      number: issue.getNumber(),
+   return removeIssueLabel(includeDefaultParams(issue, {
       name:   label
-   });
+   }));
 };
 
 exports.addLabel = function addLabel(issue, label) {
@@ -27,10 +24,15 @@ exports.addLabel = function addLabel(issue, label) {
       return Promise.resolve();
    }
    debug("Issue %s: adding label %s", issue.getNumber(), label);
-   return addIssueLabel({
+   return addIssueLabel(includeDefaultParams(issue, {
+      labels: [label]
+   }));
+};
+
+function includeDefaultParams(issue,  params) {
+   return Object.assign({
       owner:  config.owner,
       repo:   config.repo,
-      number: issue.getNumber(),
-      labels: [label]
-   });
-};
+      number: issue.getNumber()
+   }, params);
+}
