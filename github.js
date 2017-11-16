@@ -29,10 +29,43 @@ exports.addLabel = function addLabel(issue, label) {
    }));
 };
 
+exports.getOpenBacklogIssues = function() {
+   debug("Getting all open backlog issues");
+   return github.issues.getForRepo({
+      owner:  config.owner,
+      repo:   config.repo,
+      state:  'open',
+      milestone: config.backlog_milestone_id,
+      per_page: 100
+   }).then(getAllPages);
+};
+
 function includeDefaultParams(issue,  params) {
    return Object.assign({
       owner:  config.owner,
       repo:   config.repo,
       number: issue.getNumber()
    }, params);
+}
+
+/**
+ * Traverses github's pagination to retrieve *all* the records.
+ * Takes in the first page of results and returns a promise for *all* the
+ * results.
+ */
+function getAllPages(currentPage, allResults) {
+   debug("Got %s results", currentPage.length);
+   return new Promise(function (resolve, reject) {
+      allResults = allResults || [];
+      allResults.push(currentPage);
+
+      if (!github.hasNextPage(currentPage)) {
+         debug("No more results");
+         return resolve([].concat(...allResults));
+      }
+
+      resolve(github.getNextPage(currentPage).then(function (nextPage) {
+         return getAllPages(nextPage, allResults);
+      }));
+   });
 }

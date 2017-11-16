@@ -2,8 +2,9 @@ module.exports = {
    owner: 'github-repo-owner-name',
    repo: 'github-repo-name',
 
-   // Name of the milestone that defines which issues are to be sorted/balanced
-   backlog_milestone: 'Backlog',
+   // id of the milestone that defines which issues are to be sorted/balanced
+   // Visible in milestone urls: https://github.com/user/repo/milestone/23
+   backlog_milestone_id: 23,
 
    github: { // This is passed straight to github.authenticate()
       type:  'token', // or 'oauth'

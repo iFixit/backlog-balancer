@@ -1,10 +1,9 @@
-var db = require('./db.js');
+var loadIssues = require('./load-issues.js');
 var debug = require('debug')('backlog:app');
 var config = require('./config.js');
 var github = require('./github.js');
 
-db.getIssuesAndLabelRows()
-.then(db.createIssueObjects)
+loadIssues()
 .then(require('./filter-issues.js'))
 .then(require('./sort-issues.js'))
 .then(function(issues) {
