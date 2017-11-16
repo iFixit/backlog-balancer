@@ -10,7 +10,9 @@ loadIssues()
    return require('./bucketize-issues.js')(issues, config.buckets);
 })
 .then(require('./apply-labels.js')(github))
-.done(function () {
+.then(function () {
    debug("Balancing complete");
+}).catch(function(err) {
+   process.nextTick(() => {throw err});
 });
 
