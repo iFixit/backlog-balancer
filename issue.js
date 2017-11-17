@@ -1,4 +1,5 @@
 var priorityLabelRegex = /^p([0-9]+)$/;
+var debug = require('debug')('backlog:issue');
 
 function Issue(number) {
    var createdOn;
@@ -51,6 +52,7 @@ function Issue(number) {
       if (!isPriorityLabel(label)) {
          return;
       }
+      debug("Issue %s found previous priority label: %s", this.getNumber(), label);
       previousLabels.push({
          title: label,
          applied_on: applied_on
