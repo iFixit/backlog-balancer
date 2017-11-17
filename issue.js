@@ -25,8 +25,8 @@ function Issue(number) {
    };
 
    this.getPreviousPriority = function() {
-      return previousPriorityLabel && getNumber(previousPriorityLabel)
-       || this.getPriority();;
+      return (previousPriorityLabel && getNumber(previousPriorityLabel))
+              || this.getPriority();
    };
 
    this.getAppliedOn = function() {
