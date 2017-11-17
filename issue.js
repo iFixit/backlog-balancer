@@ -1,6 +1,7 @@
 var priorityLabelRegex = /^p([0-9]+)$/;
 
 function Issue(number) {
+   var createdOn;
    var labels = [];
    var previousLabels = [];
    var priorityLabel;
@@ -9,6 +10,9 @@ function Issue(number) {
    this.hasPriority = function () {
       return !!priorityLabel;
    };
+
+   this.setCreatedOn = (inCreatedOn) => createdOn = inCreatedOn
+   this.getCreatedOn = () => createdOn
 
    this.getPriority = function() {
       return priorityLabel && getNumber(priorityLabel);

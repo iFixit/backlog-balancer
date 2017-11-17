@@ -19,6 +19,9 @@ function createIssuesFromGithubResponses(githubIssues) {
 
 function createIssueFromGithubResponse(ghIssue) {
    var issue = new Issue(ghIssue.number)
+   // Note: this is a date/time string, but because it's an ISO 8601 date
+   // format, the values can be comapred lexigraphically without conversion
+   issue.setCreatedOn(issue.created_at);
    ghIssue.labels.forEach((label) => {
       issue.addLabel(label.name, 1)
    })

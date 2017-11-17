@@ -18,11 +18,11 @@ module.exports = function sortByLabelAndDate(issues) {
          return -1;
       }
 
-      // Sort applied_on DESC so more recent times come first
-      if (a.getAppliedOn() < b.getAppliedOn()) {
-         return 1;
-      } else if (a.getAppliedOn() > b.getAppliedOn()) {
+      // Sort createdOn ASC so older issues times come first
+      if (a.getCreatedOn() < b.getCreatedOn()) {
          return -1;
+      } else if (a.getCreatedOn() > b.getCreatedOn()) {
+         return 1;
       } else {
          return 0;
       }
