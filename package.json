@@ -7,7 +7,8 @@
     "debug": "2.6.x",
     "github": "8.2.x",
     "mysql": "2.13.x",
-    "promise": "7.1.x"
+    "promise": "7.1.x",
+    "paraflow": "^0.0.2"
   },
   "devDependencies": {
     "mocha": "3.2.x"

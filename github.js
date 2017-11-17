@@ -2,6 +2,7 @@ var config = require('./config');
 var debug = require('debug')('backlog:github');
 var Promise = require('promise');
 var github = new require('github')(),
+    getIssueEvents = github.issues.getEvents,
     addIssueLabel = github.issues.addLabels,
     removeIssueLabel = github.issues.removeLabel;
 
@@ -38,6 +39,15 @@ exports.getOpenBacklogIssues = function() {
       milestone: config.backlog_milestone_id,
       per_page: 100
    }).then(getAllPages);
+};
+
+exports.getIssueEvents = function(issue) {
+   debug("Getting events for issue %s", issue.getNumber());
+   return getIssueEvents({
+      owner:  config.owner,
+      repo:   config.repo,
+      issue_number: issue.getNumber()
+   });
 };
 
 function includeDefaultParams(issue,  params) {
