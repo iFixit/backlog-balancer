@@ -5,7 +5,7 @@ var github = require('./github.js');
 var paraflow = require('paraflow');
 
 // Max number of github requests in parallel
-const PARALELL_LIMIT = 5;
+const PARALLEL_LIMIT = 5;
 
 module.exports = () => {
    return github.getOpenBacklogIssues()
@@ -36,7 +36,7 @@ function getPreviousLabelsForIssues(issues) {
          .then(addPreviousLabelsToIssue(issue))
          .then(done, reject)
       }
-      paraflow(PARALELL_LIMIT,
+      paraflow(PARALLEL_LIMIT,
                issues,
                getPreviousLabelsForIssue,
             () => {
