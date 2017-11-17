@@ -46,7 +46,8 @@ exports.getIssueEvents = function(issue) {
    return getIssueEvents({
       owner:  config.owner,
       repo:   config.repo,
-      issue_number: issue.getNumber()
+      issue_number: issue.getNumber(),
+      per_page: 100
    });
 };
 
