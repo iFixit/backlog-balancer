@@ -27,6 +27,32 @@ describe('Issue', function() {
       });
    });
 
+   describe('#getPreviousPriority()', function() {
+      function issueWithLabels() {
+         var i = new Issue();
+         i.addPreviousLabel('p4', 2);
+         i.addPreviousLabel('p5', 1);
+         i.addPreviousLabel('not-a-priority', 0);
+         i.addLabel('p9', 3);
+         i.addLabel('p2', 2);
+         return i;
+      }
+      it('should choose the most recent previous label', function() {
+         var i = issueWithLabels();
+         assert.equal(4, i.getPreviousPriority());
+         assert.equal(9, i.getPriority());
+      });
+      it('should return null if there is no priority at all', function() {
+         var i = new Issue(1);
+         assert.equal(null, i.getPreviousPriority());
+      });
+      it('should return current priority if there is no previous priority', function() {
+         var i = new Issue(1);
+         i.addLabel('p2', 2);
+         assert.equal(2, i.getPreviousPriority());
+      });
+   });
+
    describe('#getPriorityLabels()', function() {
       it('should return all the labels that look like priority labels', function() {
          var i = new Issue();

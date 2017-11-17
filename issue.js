@@ -2,7 +2,9 @@ var priorityLabelRegex = /^p([0-9]+)$/;
 
 function Issue(number) {
    var labels = [];
+   var previousLabels = [];
    var priorityLabel;
+   var previousPriorityLabel;
 
    this.hasPriority = function () {
       return !!priorityLabel;
@@ -10,6 +12,15 @@ function Issue(number) {
 
    this.getPriority = function() {
       return priorityLabel && getNumber(priorityLabel);
+   };
+
+   this.getPriorityLabel = function() {
+      return priorityLabel && priorityLabel.title;
+   };
+
+   this.getPreviousPriority = function() {
+      return previousPriorityLabel && getNumber(previousPriorityLabel)
+       || this.getPriority();;
    };
 
    this.getAppliedOn = function() {
@@ -30,6 +41,17 @@ function Issue(number) {
       });
       priorityLabel = choosePriorityLabel(labels);
       return priorityLabel;
+   };
+
+   this.addPreviousLabel = function(label, applied_on) {
+      if (!isPriorityLabel(label)) {
+         return;
+      }
+      previousLabels.push({
+         title: label,
+         applied_on: applied_on
+      });
+      return previousPriorityLabel = choosePriorityLabel(previousLabels);
    };
 
    this.getPriorityLabels = function() {
