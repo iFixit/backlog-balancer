@@ -1,4 +1,5 @@
-var priorityLabelRegex = /^p([0-9]+)$/;
+// support p1 -> p99
+var priorityLabelRegex = /^p([1-9][0-9]*)$/;
 var debug = require('debug')('backlog:issue');
 
 function Issue(number) {
