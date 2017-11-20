@@ -1,7 +1,7 @@
 var debug = require('debug')('backlog:sort');
 
 module.exports = function sortByLabelAndDate(issues) {
-   debug("Sorting %s issues by priority, then label applied date", issues.length);
+   debug("Sorting %s issues by priority, then previous priority, then creation date", issues.length);
    var priorityComparisons = 0;
    var previousPriorityComparisons = 0;
    var createdOnComparisons = 0;

@@ -23,6 +23,11 @@ function createIssueFromGithubResponse(ghIssue) {
    // format, the values can be comapred lexigraphically without conversion
    issue.setCreatedOn(issue.created_at);
    ghIssue.labels.forEach((label) => {
+      // Since we're grabbing the current state of the labels,
+      // we don't know when they were added. To keep them equivalent, let's
+      // just give all them an "applied_on" date of 1.
+      // We may use the label events to retrieve the applied on date in the
+      // future, but for now, this is easier.
       issue.addLabel(label.name, 1)
    })
    return issue
