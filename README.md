@@ -9,3 +9,9 @@ Modify the config to suit your setup, then run this:
 
     bin/backlog-balance --dry-run
 
+Testing
+---------------
+Run the tests, see it pass.
+
+    npm test
+

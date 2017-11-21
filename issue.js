@@ -1,15 +1,32 @@
-var priorityLabelRegex = /^p([1-9])$/;
+// support p1 -> p99
+var priorityLabelRegex = /^p([1-9][0-9]*)$/;
+var debug = require('debug')('backlog:issue');
 
 function Issue(number) {
+   var createdOn;
    var labels = [];
+   var previousLabels = [];
    var priorityLabel;
+   var previousPriorityLabel;
 
    this.hasPriority = function () {
       return !!priorityLabel;
    };
 
+   this.setCreatedOn = (inCreatedOn) => createdOn = inCreatedOn
+   this.getCreatedOn = () => createdOn
+
    this.getPriority = function() {
       return priorityLabel && getNumber(priorityLabel);
+   };
+
+   this.getPriorityLabel = function() {
+      return priorityLabel && priorityLabel.title;
+   };
+
+   this.getPreviousPriority = function() {
+      return (previousPriorityLabel && getNumber(previousPriorityLabel))
+              || this.getPriority();
    };
 
    this.getAppliedOn = function() {
@@ -30,6 +47,18 @@ function Issue(number) {
       });
       priorityLabel = choosePriorityLabel(labels);
       return priorityLabel;
+   };
+
+   this.addPreviousLabel = function(label, applied_on) {
+      if (!isPriorityLabel(label)) {
+         return;
+      }
+      debug("Issue %s found previous priority label: %s", this.getNumber(), label);
+      previousLabels.push({
+         title: label,
+         applied_on: applied_on
+      });
+      return previousPriorityLabel = choosePriorityLabel(previousLabels);
    };
 
    this.getPriorityLabels = function() {

@@ -2,8 +2,9 @@ var config = require('./config');
 var debug = require('debug')('backlog:github');
 var Promise = require('promise');
 var github = new require('github')(),
-    addIssueLabel = Promise.denodeify(github.issues.addLabels),
-    removeIssueLabel = Promise.denodeify(github.issues.removeLabel);
+    getIssueEvents = github.issues.getEvents,
+    addIssueLabel = github.issues.addLabels,
+    removeIssueLabel = github.issues.removeLabel;
 
 github.authenticate(config.github);
 
@@ -13,12 +14,9 @@ exports.removeLabel = function removeLabel(issue, label) {
       return Promise.resolve();
    }
    debug("Issue %s: removing label %s", issue.getNumber(), label);
-   return removeIssueLabel({
-      owner:  config.owner,
-      repo:   config.repo,
-      number: issue.getNumber(),
+   return removeIssueLabel(includeDefaultParams(issue, {
       name:   label
-   });
+   }));
 };
 
 exports.addLabel = function addLabel(issue, label) {
@@ -27,10 +25,58 @@ exports.addLabel = function addLabel(issue, label) {
       return Promise.resolve();
    }
    debug("Issue %s: adding label %s", issue.getNumber(), label);
-   return addIssueLabel({
+   return addIssueLabel(includeDefaultParams(issue, {
+      labels: [label]
+   }));
+};
+
+exports.getOpenBacklogIssues = function() {
+   debug("Getting all open backlog issues");
+   return github.issues.getForRepo({
       owner:  config.owner,
       repo:   config.repo,
-      number: issue.getNumber(),
-      labels: [label]
+      state:  'open',
+      milestone: config.backlog_milestone_id,
+      per_page: 100
+   }).then(getAllPages);
+};
+
+exports.getIssueEvents = function(issue) {
+   debug("Getting events for issue %s", issue.getNumber());
+   return getIssueEvents({
+      owner:  config.owner,
+      repo:   config.repo,
+      issue_number: issue.getNumber(),
+      per_page: 100
    });
 };
+
+function includeDefaultParams(issue,  params) {
+   return Object.assign({
+      owner:  config.owner,
+      repo:   config.repo,
+      number: issue.getNumber()
+   }, params);
+}
+
+/**
+ * Traverses github's pagination to retrieve *all* the records.
+ * Takes in the first page of results and returns a promise for *all* the
+ * results.
+ */
+function getAllPages(currentPage, allResults) {
+   debug("Got %s results", currentPage.length);
+   return new Promise(function (resolve, reject) {
+      allResults = allResults || [];
+      allResults.push(currentPage);
+
+      if (!github.hasNextPage(currentPage)) {
+         debug("No more results");
+         return resolve([].concat(...allResults));
+      }
+
+      resolve(github.getNextPage(currentPage).then(function (nextPage) {
+         return getAllPages(nextPage, allResults);
+      }));
+   });
+}
